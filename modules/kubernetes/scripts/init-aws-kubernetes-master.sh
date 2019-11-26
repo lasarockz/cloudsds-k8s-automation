@@ -157,7 +157,7 @@ cp /home/centos/kubeconfig_ip /home/centos/kubeconfig
 sed -i "s/server: https:\/\/$IP_ADDRESS:6443/server: https:\/\/$DNS_NAME:6443/g" /home/centos/kubeconfig
 chown centos:centos /home/centos/kubeconfig
 chmod 0600 /home/centos/kubeconfig
-cp kubeconfig /home/centos/.kube/config
+cp /home/centos/kubeconfig /home/centos/.kube/config
 
 # Load addons
 for ADDON in $ADDONS
