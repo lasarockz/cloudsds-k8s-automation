@@ -1,7 +1,7 @@
 module "kubernetes" {
   source = "../modules/kubernetes/"
 
-  aws_region           = "us-west-1"
+  aws_region           = "us-west-2"
   cluster_name         = "cloudsds-k8s-1"
   master_instance_type = "t2.medium"
   worker_instance_type = "t2.medium"
@@ -32,19 +32,20 @@ module "kubernetes" {
   ]
 
   addons = [
-    "https://raw.githubusercontent.com/scholzj/terraform-aws-kubernetes/master/addons/storage-class.yaml",
-    "https://raw.githubusercontent.com/scholzj/terraform-aws-kubernetes/master/addons/metrics-server.yaml",
-    "https://raw.githubusercontent.com/scholzj/terraform-aws-kubernetes/master/addons/dashboard.yaml",
-    "https://raw.githubusercontent.com/scholzj/terraform-aws-kubernetes/master/addons/external-dns.yaml",
-    "https://raw.githubusercontent.com/scholzj/terraform-aws-kubernetes/master/addons/autoscaler.yaml",
+    "https://raw.githubusercontent.com/lasarockz/cloudsds-k8s-automation/master/modules/kubernetes/addons/ingress.yaml",
+    "https://raw.githubusercontent.com/lasarockz/cloudsds-k8s-automation/master/modules/kubernetes/addons/metrics-server.yaml",
+    "https://raw.githubusercontent.com/lasarockz/cloudsds-k8s-automation/master/modules/kubernetes/addons/dashboard.yaml",
+    "https://raw.githubusercontent.com/lasarockz/cloudsds-k8s-automation/master/modules/kubernetes/addons/external-dns.yaml",
+    "https://raw.githubusercontent.com/lasarockz/cloudsds-k8s-automation/master/modules/kubernetes/addons/autoscaler.yaml",
+    "https://raw.githubusercontent.com/lasarockz/cloudsds-k8s-automation/master/modules/kubernetes/addons/ingress.yaml"
   ]
 }
 
 module "vpc" {
   source = "../modules/vpc"
 
-  aws_region = "us-west-1"
-  aws_zones = ["us-west-1a", "us-west-1b", "us-west-1c"]
+  aws_region = "us-west-2"
+  aws_zones = ["us-west-2a","us-west-2b", "us-west-2c"]
   vpc_name = "cloudsds-vpc"
   vpc_cidr = "10.0.0.0/16"
   private_subnets = "true"
