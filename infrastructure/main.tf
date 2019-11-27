@@ -2,7 +2,7 @@ module "kubernetes" {
   source = "../modules/kubernetes/"
 
   aws_region           = "us-west-2"
-  cluster_name         = "cloudsds-k8s-1"
+  cluster_name         = "sds-k8s-1"
   master_instance_type = "t2.medium"
   worker_instance_type = "t2.medium"
   ssh_public_key       = "~/.ssh/id_rsa.pub"
@@ -46,7 +46,7 @@ module "vpc" {
 
   aws_region = "us-west-2"
   aws_zones = ["us-west-2a","us-west-2b", "us-west-2c"]
-  vpc_name = "cloudsds-vpc"
+  vpc_name = "sds-k8s-vpc"
   vpc_cidr = "10.0.0.0/16"
   private_subnets = "true"
 
@@ -69,8 +69,9 @@ output "private_subnets" {
 }
 
 terraform {
-  backend "s3" {
-  bucket="sds-k8s-terraform"
-  key="cloudsds/remote_state/terraform.tfstate"
-  region="us-west-2"
+backend "s3" {
+bucket="sds-k8s-terraform"
+key="cloudsds/remote_state/terraform.tfstate"
+region="us-west-2"
+}
 }
