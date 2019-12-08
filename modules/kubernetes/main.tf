@@ -12,7 +12,7 @@ provider "aws" {
 #####
 
 module "kubeadm-token" {
-  source = "scholzj/kubeadm-token/random"
+  source = "../../modules/token/"
 }
 
 #####
@@ -39,7 +39,7 @@ resource "aws_iam_role" "master_role" {
 
   assume_role_policy = <<EOF
 {
-  "Version": "2012-10-17",
+ "Version": "2012-10-17",
   "Statement": [
     {
       "Action": "sts:AssumeRole",
@@ -67,7 +67,6 @@ resource "aws_iam_instance_profile" "master_profile" {
 }
 
 # Node
-
 data "template_file" "node_policy_json" {
   template = file("${path.module}/template/node-policy.json.tpl")
 
@@ -112,6 +111,7 @@ resource "aws_iam_instance_profile" "node_profile" {
   name = "${var.cluster_name}-node"
   role = aws_iam_role.node_role.name
 }
+
 
 #####
 # Security Group

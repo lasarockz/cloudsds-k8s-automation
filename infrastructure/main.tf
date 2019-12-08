@@ -8,7 +8,7 @@ module "kubernetes" {
   ssh_public_key       = "~/.ssh/id_rsa.pub"
   ssh_access_cidr      = ["0.0.0.0/0"]
   api_access_cidr      = ["0.0.0.0/0"]
-  min_worker_count     = 1
+  min_worker_count     = 3
   max_worker_count     = 6
   hosted_zone          = "k8s5.colabit.store"
   hosted_zone_private  = false
@@ -68,10 +68,10 @@ output "private_subnets" {
   value = "${module.vpc.private_subnet_ids}"
 }
 
-#terraform {
-#backend "s3" {
-#bucket="sds-k8s-terraform"$
-#key="cloudsds/remote_state/terraform.tfstate"
-#region="us-west-2"
-#}
-#}
+terraform {
+backend "s3" {
+bucket="sds-k8s-terraform"
+key="cloudsds/remote_state/terraform.tfstate"
+region="us-west-2"
+}
+}
