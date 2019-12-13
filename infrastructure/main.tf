@@ -8,8 +8,8 @@ module "kubernetes" {
   ssh_public_key       = "~/.ssh/id_rsa.pub"
   ssh_access_cidr      = ["0.0.0.0/0"]
   api_access_cidr      = ["0.0.0.0/0"]
-  min_worker_count     = 3
-  max_worker_count     = 6
+  min_worker_count     = 1
+  max_worker_count     = 25
   hosted_zone          = "k8s5.colabit.store"
   hosted_zone_private  = false
   vpc_id               = "${module.vpc.vpc_id}"
