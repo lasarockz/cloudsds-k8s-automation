@@ -24,6 +24,9 @@ spec:
         app: default-http-backend
     spec:
       terminationGracePeriodSeconds: 60
+      tolerations:
+        - key: "node-role.kubernetes.io/master"
+          effect: NoSchedule
       containers:
       - name: default-http-backend
         # Any image is permissible as long as:
@@ -277,6 +280,9 @@ spec:
         prometheus.io/scrape: 'true'
     spec:
       serviceAccountName: nginx-ingress-serviceaccount
+      tolerations:
+        - key: "node-role.kubernetes.io/master"
+          effect: NoSchedule
       containers:
         - name: nginx-ingress-controller
           image: quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.25.1

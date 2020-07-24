@@ -81,6 +81,9 @@ spec:
         k8s-app: metrics-server
     spec:
       serviceAccountName: metrics-server
+      tolerations:
+        - key: "node-role.kubernetes.io/master"
+          effect: NoSchedule
       volumes:
       # mount in tmp so we can safely use from-scratch images and/or read-only containers
       - name: tmp-dir

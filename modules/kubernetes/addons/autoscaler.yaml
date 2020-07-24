@@ -138,12 +138,8 @@ spec:
     spec:
       serviceAccountName: cluster-autoscaler
       tolerations:
-        - effect: NoSchedule
-          operator: "Equal"
-          value: "true"
-          key: node-role.kubernetes.io/master
-      nodeSelector:
-        kubernetes.io/role: master
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
       containers:
         - image: k8s.gcr.io/cluster-autoscaler:v1.14.7
           name: cluster-autoscaler
@@ -160,7 +156,9 @@ spec:
             - --stderrthreshold=info
             - --cloud-provider=aws
             - --skip-nodes-with-local-storage=false
-            - --nodes={{ node_asg_min }}:{{ node_asg_max }}:{{ name }}
+            - --nodes=0:10:sds-gpu-poc-cpu-nodes
+            - --nodes=0:10:sds-gpu-poc-gpu-nodes
+            - --ignore-daemonsets-utilization
           volumeMounts:
             - name: ssl-certs
               mountPath: /etc/ssl/certs/ca-certificates.crt
